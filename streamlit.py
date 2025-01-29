@@ -5,6 +5,7 @@ import numpy as np
 import requests
 import pandas as pd
 import io
+import traceback
 # openweather
 def get_weather_data(location):
     api_key = "9311f6a18572d18e580c0f9885106d74"  
@@ -17,8 +18,12 @@ def get_weather_data(location):
         return None
 
 #Gathering information From Trined and stored  data
-with open('farmer_advisory_model.pkl', 'rb') as f:
-    model, label_encoders = pickle.load(f)
+try:
+    with open("/mount/src/niruthi_project/model_file.pkl", "rb") as f:
+        model, label_encoders = pickle.load(f)
+except Exception as e:
+    print("An error occurred:")
+    traceback.print_exc()
 
 #title
 st.title("Farmer Advisory System")
